@@ -1,0 +1,65 @@
+openapi: 3.0.0
+info:
+  version: "1.0.0"
+  title: MailBox API
+  description: Mail API for Interacting with Databse
+  contact:
+    name: ""
+servers:
+  - url: http://localhost:3005
+
+paths:
+  /login:
+    post:
+      description: Used to authenticate Users
+      responses:
+        "200":
+          description: Successful
+        "500":
+          description: Sever Error
+
+  /message:
+    post:
+      description: Uses User email address to see if user has message in the database
+      responses:
+        "200":
+          description: Successful
+        "500":
+          description: Sever Error
+          content:
+            application/json:
+              schema:
+                type: array
+                item:
+                  $ref: "#components/schema/user"
+
+  /display:
+    post:
+      description: Used to display the loggedin users messages
+      responses:
+        "200":
+          description: Successful
+        "500":
+          description: Sever Error
+          content:
+            application/json:
+              schema:
+                type:
+                item:
+                  $ref: "#components/schema/user"
+
+components:
+  schema:
+    user:
+      type:
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+        subject:
+          type: string
+        content:
+          type: string
+        IsRead:
+          type: string
